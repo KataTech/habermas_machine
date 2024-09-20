@@ -1,33 +1,14 @@
-# habermas_machine
+# habermas_machine - Habermas Machine dataset
 
-TODO(b/357055340): Add a description for your new project, explain what is
-being released here, etc... Additional, the following sections are normally
-expected for all releases. Feel free to add additional sections if appropriate
-for your project.
+This repository contains the Habermas Machine dataset, used in
+[Tessler, M. H., Bakker, M. A., et al. "AI can help humans find common ground in democratic deliberation". 2024.]()
+to train and evaluate the Habermas Machine.
 
-## Installation
 
-Write instructions for how the user should install your code. The instructions
-should ideally be valid when copy-pasted. You can combine this with the Usage
-section if there's no separate installation step.
+## Download data files from Google Cloud Storage
 
-## Usage
+You can download the data from [Google Cloud Storage](https://console.cloud.google.com/storage/browser/habermas_machine).
 
-Write example usage of your code. The instructions should ideally be valid when
-copy-pasted, and will be used by your technical reviewer to verify that your
-package functions correctly.
-
-## Citing this work
-
-Add citation details here, usually a pastable BibTeX snippet:
-
-```latex
-@article{publicationname,
-      title={Publication Name},
-      author={Author One and Author Two and Author Three},
-      year={2024},
-}
-```
 
 ## License and disclaimer
 
