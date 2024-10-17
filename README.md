@@ -10,11 +10,11 @@ to train and evaluate the Habermas Machine.
 You can download the data from [Google Cloud Storage](https://console.cloud.google.com/storage/browser/habermas_machine).
 
 
-## Load into python
+## Load into Python
 
-You can load the data into a python colab using the following:
+You can load the data into a Python colab using the following:
 
-```
+```python
 import io
 import requests
 import pandas as pd
