@@ -27,6 +27,10 @@ with io.BytesIO(response.content) as f:
   df = pd.read_parquet(f)
 ```
 
+## Coming soon...
+
+- Colab to implement basic preprocessing done in the paper
+
 ## License and disclaimer
 
 Copyright 2024 DeepMind Technologies Limited
