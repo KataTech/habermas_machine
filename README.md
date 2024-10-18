@@ -7,8 +7,14 @@ to train and evaluate the Habermas Machine.
 
 ## Download data files from Google Cloud Storage
 
-You can download the data from [Google Cloud Storage](https://console.cloud.google.com/storage/browser/habermas_machine).
+You can download the data from Google Cloud Storage (total size ~450 MB):
 
+```shell
+wget https://storage.googleapis.com/habermas_machine/datasets/hm_all_candidate_comparisons.parquet
+wget https://storage.googleapis.com/habermas_machine/datasets/hm_all_final_preference_rankings.parquet
+wget https://storage.googleapis.com/habermas_machine/datasets/hm_all_position_statement_ratings.parquet
+wget https://storage.googleapis.com/habermas_machine/datasets/hm_all_round_survey_responses.parquet
+```
 
 ## Load into Python
 
