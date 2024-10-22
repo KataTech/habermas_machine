@@ -18,6 +18,9 @@ wget https://storage.googleapis.com/habermas_machine/datasets/hm_all_round_surve
 
 ## Load into Python
 
+[![Open In
+Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/google-deepmind/habermas_machine/blob/master/analysis/habermas_machine_data_preprocessing.ipynb)
+
 You can load the data into a Python colab using the following:
 
 ```python
@@ -32,10 +35,6 @@ response = requests.get(file_location)
 with io.BytesIO(response.content) as f:
   df = pd.read_parquet(f)
 ```
-
-## Coming soon...
-
-- Colab to implement basic preprocessing done in the paper
 
 ## License and disclaimer
 
