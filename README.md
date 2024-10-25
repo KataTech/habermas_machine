@@ -1,7 +1,7 @@
 # habermas_machine - Habermas Machine dataset
 
 This repository contains the Habermas Machine dataset, used in
-[Tessler, M. H.<sup>\*</sup>, Bakker, M. A.<sup>\*</sup>, Jarret, D., Sheahan, H., Chadwick, M. J., Koster, R., Evans, G., Campbell-Gillingham, L., Collins, T., Parkes, D. C., Botvinick, M., & Summerfield C. (2024). "AI can help humans find common ground in democratic deliberation".]()
+[Tessler, M. H.<sup>\*</sup>, Bakker, M. A.<sup>\*</sup>, Jarret, D., Sheahan, H., Chadwick, M. J., Koster, R., Evans, G., Campbell-Gillingham, L., Collins, T., Parkes, D. C., Botvinick, M., & Summerfield C. (2024). "AI can help humans find common ground in democratic deliberation". *Science*.](https://www.science.org/doi/10.1126/science.adq2852)
 to train and evaluate the Habermas Machine.
 
 
