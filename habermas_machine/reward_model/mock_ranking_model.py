@@ -20,9 +20,9 @@ from collections.abc import Sequence
 import numpy as np
 from typing_extensions import override
 
-from llm_client import base_client
-from reward_model import base_model
-from social_choice import utils
+from habermas_machine.habermas_machine.llm_client import base_client
+from habermas_machine.habermas_machine.reward_model import base_model
+from habermas_machine.habermas_machine.social_choice import utils
 
 
 class MockRankingModel(base_model.BaseRankingModel):

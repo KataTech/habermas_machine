@@ -16,8 +16,8 @@
 from absl.testing import absltest
 from absl.testing import parameterized
 
-from llm_client import mock_client
-from statement_model import cot_model
+from habermas_machine.habermas_machine.llm_client import mock_client
+from habermas_machine.habermas_machine.statement_model import cot_model
 
 
 class COTModelTest(parameterized.TestCase):

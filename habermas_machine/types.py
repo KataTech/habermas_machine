@@ -17,19 +17,19 @@
 
 import enum
 
-from llm_client import aistudio_client
-from llm_client import base_client
-from llm_client import mock_client
-from reward_model import base_model
-from reward_model import cot_ranking_model
-from reward_model import length_based_model
-from reward_model import mock_ranking_model
-from social_choice import base_method
-from social_choice import schulze_method
-from social_choice import utils as sc_utils
-from statement_model import base_model as statement_base_model
-from statement_model import cot_model
-from statement_model import mock_statement_model
+from habermas_machine.habermas_machine.llm_client import aistudio_client
+from habermas_machine.habermas_machine.llm_client import base_client
+from habermas_machine.habermas_machine.llm_client import mock_client
+from habermas_machine.habermas_machine.reward_model import base_model
+from habermas_machine.habermas_machine.reward_model import cot_ranking_model
+from habermas_machine.habermas_machine.reward_model import length_based_model
+from habermas_machine.habermas_machine.reward_model import mock_ranking_model
+from habermas_machine.habermas_machine.social_choice import base_method
+from habermas_machine.habermas_machine.social_choice import schulze_method
+from habermas_machine.habermas_machine.social_choice import utils as sc_utils
+from habermas_machine.habermas_machine.statement_model import base_model as statement_base_model
+from habermas_machine.habermas_machine.statement_model import cot_model
+from habermas_machine.habermas_machine.statement_model import mock_statement_model
 
 
 RANKING_MOCK = sc_utils.RANKING_MOCK

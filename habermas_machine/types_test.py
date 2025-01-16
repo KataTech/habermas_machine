@@ -17,7 +17,7 @@ from absl.testing import absltest
 from absl.testing import parameterized
 import numpy as np
 
-import types
+from habermas_machine.habermas_machine import types
 
 
 class TypesTest(parameterized.TestCase):
