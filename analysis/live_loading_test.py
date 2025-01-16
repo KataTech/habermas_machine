@@ -1,4 +1,4 @@
-# Copyright 2024 DeepMind Technologies Limited
+# Copyright 2025 DeepMind Technologies Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ from absl.testing import parameterized
 import numpy as np
 import pandas as pd
 
-from habermas_machine.analysis import live_loading
-from habermas_machine.analysis import mocks
-from habermas_machine.analysis import serialise
-from habermas_machine.analysis import types as hm_types
+from analysis import live_loading
+from analysis import mocks
+from analysis import serialise
+from analysis import types as hm_types
 
 DFKeys = serialise.SerialisedComparisonKeys
 DFGroupedKeys = serialise.GroupedSerialisedComparisonKeys()

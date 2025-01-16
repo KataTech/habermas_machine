@@ -1,4 +1,4 @@
-# habermas_machine - Habermas Machine dataset
+# Habermas Machine dataset
 
 This repository contains the Habermas Machine dataset, used in
 [Tessler, M. H.<sup>\*</sup>, Bakker, M. A.<sup>\*</sup>, Jarret, D., Sheahan, H., Chadwick, M. J., Koster, R., Evans, G., Campbell-Gillingham, L., Collins, T., Parkes, D. C., Botvinick, M., & Summerfield C. (2024). "AI can help humans find common ground in democratic deliberation". *Science*.](https://www.science.org/doi/10.1126/science.adq2852)
@@ -36,7 +36,35 @@ with io.BytesIO(response.content) as f:
   df = pd.read_parquet(f)
 ```
 
-## License and disclaimer
+# Prompted Habermas Machine
+In `habermas_machine/` we provide a prompted version of the Habermas Machine.
+ The package can be installed using the following command:
+
+```shell
+pip install --upgrade git+https://github.com/google-deepmind/habermas_machine.git
+```
+
+For a demo of the prompted Habermas Machine, see the following colab:
+[![Open In
+Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/google-deepmind/habermas_machine/blob/master/habermas_machine/example_ai_studio.ipynb)
+
+There are a few key differences between the prompted version of the Habermas
+Machine and the fine-tuned Habermas Machine in the paper:
+
+1. The prompted version of the Habermas Machine is not fine-tuned on the
+ dataset that we provide but instead uses a more elaborate prompt and
+ chain-of-thought to generate the candidate statements and preferences.
+
+2. The prompted version of the Habermas Machine currently uses AI Studio with a
+ Gemini backend. However, other LLM backends can be used and added to
+ `habermas_machine/llm_client/`.
+
+3. The reward model used in the prompted version of the Habermas Machine is
+ generating the full ranking over statements given an opinion (and critique)
+ rather than a score like is done in the paper. However, more reward models
+ can be added to `habermas_machine/reward_model/`.
+
+# License and disclaimer
 
 Copyright 2024 DeepMind Technologies Limited
 
