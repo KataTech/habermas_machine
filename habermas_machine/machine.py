@@ -205,7 +205,7 @@ class HabermasMachine:
             f" {utils.numerical_ranking_to_ordinal_text(ranking)}"
         )
 
-    untied_social_ranking, tied_social_ranking = (
+    tied_social_ranking, untied_social_ranking = (
         self._social_choice_method.aggregate(
             all_rankings, seed=self._get_new_seed()
         )
