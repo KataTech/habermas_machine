@@ -16,7 +16,7 @@
 from absl.testing import absltest
 from absl.testing import parameterized
 
-from habermas_machine import habermas_machine as hm
+from habermas_machine import machine
 from habermas_machine import types
 from social_choice import utils as sc_utils
 
@@ -30,7 +30,7 @@ class HabermasMachineTest(parameterized.TestCase):
     question = 'What is the meaning of life?'
     opinions = ['42', 'To be happy.']
     critiques = ['I disagree.', 'I agree.']
-    machine = hm.HabermasMachine(
+    hm = machine.HabermasMachine(
         question=question,
         statement_client=types.LLMCLient.MOCK.get_client('mock_url'),
         reward_client=types.LLMCLient.MOCK.get_client('mock_url'),
@@ -45,29 +45,29 @@ class HabermasMachineTest(parameterized.TestCase):
     )
 
     # Test initial state.
-    self.assertEqual(machine._round, 0)
-    self.assertEmpty(machine._opinions)
-    self.assertEmpty(machine._critiques)
-    self.assertEmpty(machine._previous_winners)
-    self.assertEmpty(machine._previous_candidates)
-    self.assertEqual(machine._num_citizens, num_citizens)
-    self.assertEqual(machine._num_candidates, num_candidates)
-    self.assertEqual(machine._verbose, False)
-    self.assertEqual(machine._question, question)
+    self.assertEqual(hm._round, 0)
+    self.assertEmpty(hm._opinions)
+    self.assertEmpty(hm._critiques)
+    self.assertEmpty(hm._previous_winners)
+    self.assertEmpty(hm._previous_candidates)
+    self.assertEqual(hm._num_citizens, num_citizens)
+    self.assertEqual(hm._num_candidates, num_candidates)
+    self.assertEqual(hm._verbose, False)
+    self.assertEqual(hm._question, question)
 
     # Test overwrite previous winner.
     with self.assertRaises(ValueError):
-      machine.overwrite_previous_winner('winner1')
+      hm.overwrite_previous_winner('winner1')
 
     # Test opinion round.
-    winner, sorted_statements = machine.mediate(opinions)
+    winner, sorted_statements = hm.mediate(opinions)
 
-    self.assertEqual(machine._round, 1)
-    self.assertEqual(machine._question, question)
-    self.assertSequenceEqual(machine._opinions, opinions)
-    self.assertEmpty(machine._critiques)
-    self.assertSequenceEqual(machine._previous_winners, [winner])
-    self.assertSequenceEqual(machine._previous_candidates, [sorted_statements])
+    self.assertEqual(hm._round, 1)
+    self.assertEqual(hm._question, question)
+    self.assertSequenceEqual(hm._opinions, opinions)
+    self.assertEmpty(hm._critiques)
+    self.assertSequenceEqual(hm._previous_winners, [winner])
+    self.assertSequenceEqual(hm._previous_candidates, [sorted_statements])
     self.assertIn(winner, sorted_statements)
     for statement in sorted_statements:
       self.assertIn(question, statement)
@@ -75,15 +75,15 @@ class HabermasMachineTest(parameterized.TestCase):
         self.assertIn(opinion, statement)
 
     # Test critique round.
-    winner2, sorted_statements2 = machine.mediate(critiques)
+    winner2, sorted_statements2 = hm.mediate(critiques)
 
-    self.assertEqual(machine._round, 2)
-    self.assertEqual(machine._question, question)
-    self.assertSequenceEqual(machine._opinions, opinions)
-    self.assertSequenceEqual(machine._critiques, [critiques])
-    self.assertSequenceEqual(machine._previous_winners, [winner, winner2])
+    self.assertEqual(hm._round, 2)
+    self.assertEqual(hm._question, question)
+    self.assertSequenceEqual(hm._opinions, opinions)
+    self.assertSequenceEqual(hm._critiques, [critiques])
+    self.assertSequenceEqual(hm._previous_winners, [winner, winner2])
     self.assertSequenceEqual(
-        machine._previous_candidates, [sorted_statements, sorted_statements2]
+        hm._previous_candidates, [sorted_statements, sorted_statements2]
     )
     self.assertIn(winner2, sorted_statements2)
     for statement in sorted_statements2:
@@ -94,12 +94,12 @@ class HabermasMachineTest(parameterized.TestCase):
         self.assertIn(critique, statement)
 
     # Test overwrite previous winner.
-    machine.overwrite_previous_winner('winner3')
-    self.assertEqual(machine._previous_winners[-1], 'winner3')
+    hm.overwrite_previous_winner('winner3')
+    self.assertEqual(hm._previous_winners[-1], 'winner3')
 
   def test_wrong_number_of_opinions(self):
     num_citizens = 2
-    machine = hm.HabermasMachine(
+    hm = machine.HabermasMachine(
         question='Question?',
         statement_client=types.LLMCLient.MOCK.get_client('mock_url'),
         reward_client=types.LLMCLient.MOCK.get_client('mock_url'),
@@ -112,11 +112,11 @@ class HabermasMachineTest(parameterized.TestCase):
         seed=0,
     )
     with self.assertRaises(ValueError):
-      _, _ = machine.mediate(['opinion1'])
+      _, _ = hm.mediate(['opinion1'])
 
   def test_wrong_number_of_critiques(self):
     num_citizens = 2
-    machine = hm.HabermasMachine(
+    hm = machine.HabermasMachine(
         question='Question?',
         statement_client=types.LLMCLient.MOCK.get_client('mock_url'),
         reward_client=types.LLMCLient.MOCK.get_client('mock_url'),
@@ -128,9 +128,9 @@ class HabermasMachineTest(parameterized.TestCase):
         num_citizens=num_citizens,
         seed=0,
     )
-    _, _ = machine.mediate(['opinion1', 'opinion2'])  # Opinion round.
+    _, _ = hm.mediate(['opinion1', 'opinion2'])  # Opinion round.
     with self.assertRaises(ValueError):
-      machine.mediate(['critique1', 'critique2', 'critique3'])
+      hm.mediate(['critique1', 'critique2', 'critique3'])
 
 
 if __name__ == '__main__':
