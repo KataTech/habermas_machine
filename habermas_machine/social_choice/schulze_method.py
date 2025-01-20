@@ -18,8 +18,8 @@
 import numpy as np
 from typing_extensions import override
 
-from habermas_machine.habermas_machine.social_choice import base_method
-from habermas_machine.habermas_machine.social_choice import utils
+from social_choice import base_method
+from social_choice import utils
 
 
 class Schulze(base_method.Base):

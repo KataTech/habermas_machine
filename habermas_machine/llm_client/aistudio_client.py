@@ -22,8 +22,8 @@ import time
 import google.generativeai as genai
 from typing_extensions import override
 
-from habermas_machine.habermas_machine.llm_client import base_client
-from habermas_machine.habermas_machine.llm_client import utils
+from llm_client import base_client
+from llm_client import utils
 
 
 DEFAULT_SAFETY_SETTINGS = (

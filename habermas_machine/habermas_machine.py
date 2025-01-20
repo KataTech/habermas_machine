@@ -19,12 +19,12 @@ from collections.abc import Sequence
 
 import numpy as np
 
-from habermas_machine.habermas_machine import types
-from habermas_machine.habermas_machine import utils
-from habermas_machine.habermas_machine.llm_client import base_client
-from habermas_machine.habermas_machine.reward_model import base_model as base_reward_model
-from habermas_machine.habermas_machine.social_choice import base_method as base_social_choice
-from habermas_machine.habermas_machine.statement_model import base_model as base_statement_model
+from habermas_machine import types
+from habermas_machine import utils
+from llm_client import base_client
+from reward_model import base_model as base_reward_model
+from social_choice import base_method as base_social_choice
+from statement_model import base_model as base_statement_model
 
 
 class HabermasMachine:

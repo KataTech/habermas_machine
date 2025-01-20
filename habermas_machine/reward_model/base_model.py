@@ -21,7 +21,7 @@ from typing import NamedTuple
 
 import numpy as np
 
-from habermas_machine.habermas_machine.llm_client import base_client
+from llm_client import base_client
 
 
 RankingResult = NamedTuple(

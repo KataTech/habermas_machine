@@ -17,7 +17,7 @@ from absl.testing import absltest
 from absl.testing import parameterized
 import numpy as np
 
-from habermas_machine.habermas_machine.reward_model import cot_ranking_model
+from reward_model import cot_ranking_model
 
 
 class COTRankingModelTest(parameterized.TestCase):

@@ -17,7 +17,7 @@ from absl.testing import absltest
 from absl.testing import parameterized
 import numpy as np
 
-from habermas_machine.habermas_machine import utils
+from habermas_machine import utils
 
 
 class ArrowRankingToStringTest(parameterized.TestCase):

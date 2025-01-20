@@ -20,7 +20,7 @@ from typing import NamedTuple
 
 import numpy as np
 
-from habermas_machine.habermas_machine.social_choice import utils
+from social_choice import utils
 
 
 RANKING_MOCK = utils.RANKING_MOCK

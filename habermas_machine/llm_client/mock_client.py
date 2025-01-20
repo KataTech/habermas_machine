@@ -19,7 +19,7 @@ from collections.abc import Collection
 
 from typing_extensions import override
 
-from habermas_machine.habermas_machine.llm_client import base_client
+from llm_client import base_client
 
 
 class MockClient(base_client.LLMClient):

@@ -19,10 +19,10 @@ from absl.testing import parameterized
 import numpy as np
 import pandas as pd
 
-from habermas_machine.analysis import live_loading
-from habermas_machine.analysis import mocks
-from habermas_machine.analysis import serialise
-from habermas_machine.analysis import types as hm_types
+from analysis import live_loading
+from analysis import mocks
+from analysis import serialise
+from analysis import types as hm_types
 
 DFKeys = serialise.SerialisedComparisonKeys
 DFGroupedKeys = serialise.GroupedSerialisedComparisonKeys()

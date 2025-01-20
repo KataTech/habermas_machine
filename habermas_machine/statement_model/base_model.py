@@ -19,7 +19,7 @@ import abc
 from collections.abc import Sequence
 from typing import NamedTuple
 
-from habermas_machine.habermas_machine.llm_client import base_client
+from llm_client import base_client
 
 StatementResult = NamedTuple(
     'StatementResult',
