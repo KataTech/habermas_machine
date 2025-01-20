@@ -36,6 +36,12 @@ setuptools.setup(
     author_email='miba@google.com',
     license=LICENSE,
     install_requires=requirements,
-    packages=['habermas_machine'],
+    packages=[
+        'habermas_machine',
+        'llm_client',
+        'reward_model',
+        'social_choice',
+        'statement_model'
+    ],
     zip_safe=False,
 )
