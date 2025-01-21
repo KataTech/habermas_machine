@@ -38,10 +38,10 @@ setuptools.setup(
     install_requires=requirements,
     packages=[
         'habermas_machine',
-        'llm_client',
-        'reward_model',
-        'social_choice',
-        'statement_model'
+        'habermas_machine.llm_client',
+        'habermas_machine.reward_model',
+        'habermas_machine.social_choice',
+        'habermas_machine.statement_model'
     ],
     zip_safe=False,
 )
