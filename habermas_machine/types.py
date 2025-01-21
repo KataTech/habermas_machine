@@ -25,6 +25,7 @@ from reward_model import cot_ranking_model
 from reward_model import length_based_model
 from reward_model import mock_ranking_model
 from social_choice import base_method
+from social_choice import mock_method
 from social_choice import schulze_method
 from social_choice import utils as sc_utils
 from statement_model import base_model as statement_base_model
@@ -97,8 +98,7 @@ class RankAggregation(enum.Enum):
   ) -> base_method.Base:
     """Returns the social ranking method."""
     if self is self.MOCK:
-      # TODO(miba): Implement mock social ranking.
-      raise NotImplementedError('Mock social ranking is not implemented.')
+      return mock_method.Mock(tie_breaking_method)
     elif self is self.SCHULZE:
       return schulze_method.Schulze(tie_breaking_method)
     else:
