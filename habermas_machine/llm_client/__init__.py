@@ -13,4 +13,4 @@
 # limitations under the License.
 # ==============================================================================
 
-# LLM clients for a prompted Habermas Machine.
+"""LLM clients for a prompted Habermas Machine."""

@@ -13,4 +13,4 @@
 # limitations under the License.
 # ==============================================================================
 
-# Statement models for a prompted Habermas Machine.
+"""Statement models for a prompted Habermas Machine."""

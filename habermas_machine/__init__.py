@@ -13,4 +13,4 @@
 # limitations under the License.
 # ==============================================================================
 
-# A prompted Habermas Machine.
+"""A prompted Habermas Machine."""

@@ -13,4 +13,4 @@
 # limitations under the License.
 # ==============================================================================
 
-# Reward models for a prompted Habermas Machine.
+"""Reward models for a prompted Habermas Machine."""

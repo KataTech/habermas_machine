@@ -13,4 +13,4 @@
 # limitations under the License.
 # ==============================================================================
 
-# Social choice methods for a prompted Habermas Machine.
+"""Social choice methods for a prompted Habermas Machine."""
