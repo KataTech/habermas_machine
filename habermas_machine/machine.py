@@ -66,6 +66,7 @@ class HabermasMachine:
       num_citizens: int = 5,
       seed: int | None = None,
       verbose: bool = False,
+      num_retries_on_error: int = 1,
   ):
     """Initializes the Habermas Machine."""
     self._question = question  # Question to be answered.
@@ -87,6 +88,8 @@ class HabermasMachine:
     self._previous_candidates = []  # Candidates from previous rounds.
     self._verbose = verbose  # Whether to print round information.
     self._opinions = []  # Initial opinions.
+    # Number of retries when the model returns an erroroneous response.
+    self._num_retries_on_error = num_retries_on_error
 
   def _get_new_seed(self):
     """Generates a new random seed."""
@@ -113,6 +116,7 @@ class HabermasMachine:
               self._previous_winners[-1] if self._previous_winners else None),
           critiques=shuffled_critiques,
           seed=self._get_new_seed(),
+          num_retries_on_error=self._num_retries_on_error,
       )
       statements.append(statement)
       explanations.append(explanation)
@@ -137,6 +141,7 @@ class HabermasMachine:
               self._previous_winners[-1] if self._round > 0 else None
           ),
           critique=self._critiques[-1][i] if self._round > 0 else None,
+          num_retries_on_error=self._num_retries_on_error,
       )
 
       if ranking is None:

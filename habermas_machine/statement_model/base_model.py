@@ -42,6 +42,7 @@ class BaseStatementModel(abc.ABC):
       previous_winner: str | None = None,
       critiques: Sequence[str] | None = None,
       seed: int | None = None,
+      num_retries_on_error: int = 1,
   ) -> StatementResult:
     """Samples text from the model.
 
@@ -52,6 +53,8 @@ class BaseStatementModel(abc.ABC):
       previous_winner: The statement that won the previous round.
       critiques: Critiques of the previous winner.
       seed: Optional seed for the sampling. If None a random seed will be used.
+      num_retries_on_error: Number of retries when it hits an error. Default is
+        1. If it runs out of retries, it returns the last result.
 
     Returns:
       A tuple containing:

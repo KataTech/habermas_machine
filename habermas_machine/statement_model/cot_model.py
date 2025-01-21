@@ -170,13 +170,25 @@ class COTModel(base_model.BaseStatementModel):
       critiques: Sequence[str] | None = None,
       seed: int | None = None,
       override_prompt: str | None = None,
+      num_retries_on_error: int = 1,
   ) -> base_model.StatementResult:
     """Generates a statement (see base model)."""
+    if num_retries_on_error < 1:
+      raise ValueError('num_retries_on_error must be at least 1.')
     prompt = _generate_prompt(question, opinions, previous_winner, critiques)
-    response = llm_client.sample_text(
-        prompt, terminators=['</answer>'], seed=seed)
+    statement, explanation = '', ''  # Dummy result.
+    for _ in range(num_retries_on_error):
+      response = llm_client.sample_text(
+          prompt, terminators=['</answer>'], seed=seed)
 
-    statement, explanation = _process_model_response(response)
+      statement, explanation = _process_model_response(response)
+      if len(statement) > 5 and 'INCORRECT' not in explanation:
+        return base_model.StatementResult(statement, explanation)
+      else:
+        if seed is not None:
+          seed += 1
+
+    # If we reach here, all retries failed. Return the last result.
     return base_model.StatementResult(statement, explanation)
 
 

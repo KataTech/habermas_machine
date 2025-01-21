@@ -32,9 +32,10 @@ class MockStatementModel(base_model.BaseStatementModel):
       previous_winner: str | None = None,
       critiques: Sequence[str] | None = None,
       seed: int | None = None,
+      num_retries_on_error: int = 1,
   ) -> base_model.StatementResult:
     """Samples text from the model (see base class)."""
-    del llm_client, seed
+    del llm_client, seed, num_retries_on_error
     parts = [question, *opinions]
     if previous_winner is not None:
       parts.extend([previous_winner, *critiques])

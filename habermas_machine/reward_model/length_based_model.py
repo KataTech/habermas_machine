@@ -43,9 +43,17 @@ class LongestStatementRankingModel(base_model.BaseRankingModel):
       statements: Sequence[str],
       previous_winner: str | None = None,
       critique: str | None = None,
+      num_retries_on_error: int = 1,
   ) -> base_model.RankingResult:
     """Ranks statements based on their length (see base class)."""
-    del llm_client, question, opinion, previous_winner, critique
+    del (
+        llm_client,
+        question,
+        opinion,
+        previous_winner,
+        critique,
+        num_retries_on_error,
+    )
     lengths = np.array([len(s) for s in statements])
     non_normalized_ranking = lengths.max() - lengths
     return base_model.RankingResult(

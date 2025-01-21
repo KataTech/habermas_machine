@@ -29,6 +29,7 @@ class COTRankingModel(base_model.BaseRankingModel):
   """A ranking model that uses chain-of-thought reasoning to rank statements."""
 
   @override
+  # TODO(miba): Add seed.
   def predict_ranking(
       self,
       llm_client: base_client.LLMClient,
@@ -37,8 +38,11 @@ class COTRankingModel(base_model.BaseRankingModel):
       statements: Sequence[str],
       previous_winner: str | None = None,
       critique: str | None = None,
+      num_retries_on_error: int = 1,
   ) -> base_model.RankingResult:
     """Ranks statements based on their length (see base class)."""
+    if num_retries_on_error < 1:
+      raise ValueError('num_retries_on_error must be at least 1.')
     if previous_winner is None and critique is not None:
       raise ValueError(
           'If there is a previous_winner, there should be a critique.'
@@ -49,16 +53,20 @@ class COTRankingModel(base_model.BaseRankingModel):
     prompt = _generate_prompt(
         question, opinion, statements, previous_winner, critique
     )
-    response = llm_client.sample_text(prompt, terminators=['</answer>'])
 
-    ranking, explanation = _process_model_response(response)
+    ranking_result = base_model.RankingResult(None, None)  # Dummy result.
+    for _ in range(num_retries_on_error):
+      response = llm_client.sample_text(prompt, terminators=['</answer>'])
+      ranking_result = _process_model_response(response, len(statements))
 
-    if len(ranking) != len(statements):
-      error_msg = 'INCORRECT_RANKING_LENGTH'
-      if explanation:
-        error_msg += f', Explanation: {explanation}'
-      return base_model.RankingResult(None, error_msg)
-    return base_model.RankingResult(ranking, explanation)
+      if (
+          ranking_result.ranking is not None
+          and 'INCORRECT' not in ranking_result.explanation
+      ):
+        return ranking_result
+
+    # If we reach here, all retries failed. return the last result.
+    return ranking_result
 
 
 def _generate_opinion_critique_prompt(
@@ -301,14 +309,16 @@ def _extract_arrow_ranking(text: str) -> str | None:
     return None
 
 
-def _process_model_response(response: str) -> tuple[np.ndarray | None, str]:
+def _process_model_response(
+    response: str, num_statements: int) -> base_model.RankingResult:
   """Processes the model's response, extract the explanation and arrow ranking.
 
   Args:
     response: The raw model response.
+    num_statements: The number of statements to rank.
 
   Returns:
-    A tuple of:
+    A base_model.RankingResult of:
     - np.ndarray: The arrow ranking if it is correct, None otherwise.
     - str: The explanation if it is correct, "INCORRECT_TEMPLATE" if the
     response format is incorrect, or "INCORRECT_ARROW_RANKING" if the arrow
@@ -319,7 +329,7 @@ def _process_model_response(response: str) -> tuple[np.ndarray | None, str]:
         r'<answer>\s*(.*?)\s*<sep>\s*(.*?)\s*</answer>', response, re.DOTALL
     )
     if match is None:
-      return None, f'INCORRECT_TEMPLATE: {response}'
+      return base_model.RankingResult(None, f'INCORRECT_TEMPLATE: {response}')
     else:
       explanation = match.group(1).strip()
       arrow_ranking = _extract_arrow_ranking(
@@ -328,7 +338,7 @@ def _process_model_response(response: str) -> tuple[np.ndarray | None, str]:
     # Backup as it sometimes returns "final ranking:" in a different format.
     match = re.search(r'(?i)final ranking:\s*(.*)', response)
     if match is None:
-      return None, f'INCORRECT_TEMPLATE: {response}'
+      return base_model.RankingResult(None, f'INCORRECT_TEMPLATE: {response}')
     else:
       explanation = response
       arrow_ranking = _extract_arrow_ranking(match.group(1))
@@ -343,7 +353,8 @@ def _process_model_response(response: str) -> tuple[np.ndarray | None, str]:
     if arrow_ranking is None or not _check_arrow_format(
         arrow_ranking
     ):
-      return None, f'INCORRECT_ARROW_RANKING: {response}'
+      return base_model.RankingResult(
+          None, f'INCORRECT_ARROW_RANKING: {response}')
 
   # Convert arrow ranking to numpy array.
   elements = re.findall(r'[A-Z]', arrow_ranking)
@@ -358,4 +369,8 @@ def _process_model_response(response: str) -> tuple[np.ndarray | None, str]:
 
   result = np.array([ranking_dict[element] for element in unique_elements])
 
-  return result, response
+  if len(result) != num_statements:
+    return base_model.RankingResult(
+        None, f'INCORRECT_RANKING_LENGTH: {response}')
+
+  return base_model.RankingResult(result, response)

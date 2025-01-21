@@ -138,11 +138,15 @@ class COTRankingModelTest(parameterized.TestCase):
   def test_process_model_response(
       self, response, expected_ranking, expected_explanation):
     """Tests the _process_model_response method."""
-    actual_ranking, actual_explanation = (
-        cot_ranking_model._process_model_response(response)
+    if expected_ranking is None:
+      num_statements = 0
+    else:
+      num_statements = len(expected_ranking)
+    ranking_result = (
+        cot_ranking_model._process_model_response(response, num_statements)
     )
-    np.testing.assert_array_equal(actual_ranking, expected_ranking)
-    self.assertEqual(actual_explanation, expected_explanation)
+    np.testing.assert_array_equal(ranking_result.ranking, expected_ranking)
+    self.assertEqual(ranking_result.explanation, expected_explanation)
 
 
 if __name__ == '__main__':
