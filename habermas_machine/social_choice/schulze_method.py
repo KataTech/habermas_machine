@@ -56,7 +56,6 @@ class Schulze(base_method.Base):
     """
     rng = np.random.default_rng(seed)
 
-    # TODO(miba): Add test for mock rankings.
     rankings = utils.filter_out_mocks(rankings)
     if rankings.size == 0:
       social_ranking_with_ties = np.full(

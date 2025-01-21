@@ -173,8 +173,11 @@ class COTModel(base_model.BaseStatementModel):
       num_retries_on_error: int = 1,
   ) -> base_model.StatementResult:
     """Generates a statement (see base model)."""
-    if num_retries_on_error < 1:
-      raise ValueError('num_retries_on_error must be at least 1.')
+    if num_retries_on_error is None:
+      num_retries_on_error = 0
+    else:
+      if num_retries_on_error < 0:
+        raise ValueError('num_retries_on_error must be None or at least 0.')
     prompt = _generate_prompt(question, opinions, previous_winner, critiques)
     statement, explanation = '', ''  # Dummy result.
     for _ in range(num_retries_on_error):
@@ -187,6 +190,7 @@ class COTModel(base_model.BaseStatementModel):
       else:
         if seed is not None:
           seed += 1
+          print(f'Retrying with new seed. Explanation: {explanation}')
 
     # If we reach here, all retries failed. Return the last result.
     return base_model.StatementResult(statement, explanation)

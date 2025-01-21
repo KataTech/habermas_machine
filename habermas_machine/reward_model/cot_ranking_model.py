@@ -29,7 +29,6 @@ class COTRankingModel(base_model.BaseRankingModel):
   """A ranking model that uses chain-of-thought reasoning to rank statements."""
 
   @override
-
   def predict_ranking(
       self,
       llm_client: base_client.LLMClient,
@@ -39,11 +38,14 @@ class COTRankingModel(base_model.BaseRankingModel):
       previous_winner: str | None = None,
       critique: str | None = None,
       seed: int | None = None,
-      num_retries_on_error: int = 1,
+      num_retries_on_error: int | None = None,
   ) -> base_model.RankingResult:
     """Ranks statements based on their length (see base class)."""
-    if num_retries_on_error < 1:
-      raise ValueError('num_retries_on_error must be at least 1.')
+    if num_retries_on_error is None:
+      num_retries_on_error = 0
+    else:
+      if num_retries_on_error < 0:
+        raise ValueError('num_retries_on_error must be None or at least 0.')
     if previous_winner is None and critique is not None:
       raise ValueError(
           'If there is a previous_winner, there should be a critique.'
@@ -56,7 +58,7 @@ class COTRankingModel(base_model.BaseRankingModel):
     )
 
     ranking_result = base_model.RankingResult(None, None)  # Dummy result.
-    for _ in range(num_retries_on_error):
+    for _ in range(num_retries_on_error + 1):
       response = llm_client.sample_text(
           prompt, terminators=['</answer>'], seed=seed)
       ranking_result = _process_model_response(response, len(statements))
@@ -66,6 +68,13 @@ class COTRankingModel(base_model.BaseRankingModel):
           and 'INCORRECT' not in ranking_result.explanation
       ):
         return ranking_result
+      else:
+        if seed is not None:
+          seed += 1
+          print(
+              'Retrying with new seed. Explanation:'
+              f' {ranking_result.explanation}'
+          )
 
     # If we reach here, all retries failed. return the last result.
     return ranking_result
