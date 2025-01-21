@@ -141,6 +141,7 @@ class HabermasMachine:
               self._previous_winners[-1] if self._round > 0 else None
           ),
           critique=self._critiques[-1][i] if self._round > 0 else None,
+          seed=self._get_new_seed(),
           num_retries_on_error=self._num_retries_on_error,
       )
 

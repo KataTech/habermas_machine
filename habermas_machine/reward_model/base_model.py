@@ -45,6 +45,7 @@ class BaseRankingModel(abc.ABC):
       statements: Sequence[str],
       previous_winner: str | None = None,
       critique: str | None = None,
+      seed: int | None = None,
       num_retries_on_error: int = 1,
   ) -> RankingResult:
     """Samples text from the model.
@@ -56,6 +57,7 @@ class BaseRankingModel(abc.ABC):
       statements: Statements that are ranked.
       previous_winner: The statement that won the previous round.
       critique: Critique of the previous winner.
+      seed: Optional seed for the model.
       num_retries_on_error: Number of retries when it hits an error. Default is
         1. If it runs out of retries, it returns the last result.
 

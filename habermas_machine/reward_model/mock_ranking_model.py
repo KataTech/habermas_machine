@@ -37,6 +37,7 @@ class MockRankingModel(base_model.BaseRankingModel):
       statements: Sequence[str],
       previous_winner: str | None = None,
       critique: str | None = None,
+      seed: int | None = None,
       num_retries_on_error: int = 1,
   ) -> base_model.RankingResult:
     """Samples text from the model (see base class)."""
@@ -46,6 +47,7 @@ class MockRankingModel(base_model.BaseRankingModel):
         opinion,
         previous_winner,
         critique,
+        seed,
         num_retries_on_error,
     )
     return base_model.RankingResult(

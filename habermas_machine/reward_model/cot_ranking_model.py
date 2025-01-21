@@ -29,7 +29,7 @@ class COTRankingModel(base_model.BaseRankingModel):
   """A ranking model that uses chain-of-thought reasoning to rank statements."""
 
   @override
-  # TODO(miba): Add seed.
+
   def predict_ranking(
       self,
       llm_client: base_client.LLMClient,
@@ -38,6 +38,7 @@ class COTRankingModel(base_model.BaseRankingModel):
       statements: Sequence[str],
       previous_winner: str | None = None,
       critique: str | None = None,
+      seed: int | None = None,
       num_retries_on_error: int = 1,
   ) -> base_model.RankingResult:
     """Ranks statements based on their length (see base class)."""
@@ -56,7 +57,8 @@ class COTRankingModel(base_model.BaseRankingModel):
 
     ranking_result = base_model.RankingResult(None, None)  # Dummy result.
     for _ in range(num_retries_on_error):
-      response = llm_client.sample_text(prompt, terminators=['</answer>'])
+      response = llm_client.sample_text(
+          prompt, terminators=['</answer>'], seed=seed)
       ranking_result = _process_model_response(response, len(statements))
 
       if (
