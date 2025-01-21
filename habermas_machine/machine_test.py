@@ -18,7 +18,7 @@ from absl.testing import parameterized
 
 from habermas_machine import machine
 from habermas_machine import types
-from social_choice import utils as sc_utils
+from habermas_machine.social_choice import utils as sc_utils
 
 
 class HabermasMachineTest(parameterized.TestCase):

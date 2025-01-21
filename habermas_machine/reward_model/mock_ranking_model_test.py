@@ -18,7 +18,7 @@ from absl.testing import parameterized
 import numpy as np
 
 from habermas_machine import types
-from reward_model import mock_ranking_model
+from habermas_machine.reward_model import mock_ranking_model
 
 
 class MockRankingModelTest(parameterized.TestCase):

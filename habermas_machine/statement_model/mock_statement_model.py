@@ -17,8 +17,8 @@
 
 from collections.abc import Sequence
 
-from llm_client import base_client
-from statement_model import base_model
+from habermas_machine.llm_client import base_client
+from habermas_machine.statement_model import base_model
 
 
 class MockStatementModel(base_model.BaseStatementModel):

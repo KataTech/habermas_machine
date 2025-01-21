@@ -17,9 +17,9 @@
 
 import pandas as pd
 
-from analysis import live_loading
-from analysis import serialise
-from analysis import types as hm_types
+from habermas_machine.analysis import live_loading
+from habermas_machine.analysis import serialise
+from habermas_machine.analysis import types as hm_types
 
 DFKeys = serialise.SerialisedComparisonKeys
 DUMMY_DF = pd.DataFrame({

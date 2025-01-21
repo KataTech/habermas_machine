@@ -17,7 +17,7 @@ from absl.testing import absltest
 from absl.testing import parameterized
 import numpy as np
 
-from social_choice import utils
+from habermas_machine.social_choice import utils
 
 
 class UtilsTest(parameterized.TestCase):

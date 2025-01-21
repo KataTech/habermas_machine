@@ -18,7 +18,7 @@
 import numpy as np
 from typing_extensions import override
 
-from social_choice import base_method
+from habermas_machine.social_choice import base_method
 
 
 class Mock(base_method.Base):
