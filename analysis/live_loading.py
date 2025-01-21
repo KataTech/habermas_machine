@@ -43,8 +43,8 @@ from typing import Any, Callable, List, Sequence, Union
 from absl import logging
 import pandas as pd
 
-from analysis import serialise
-from analysis import types as hm_types
+from habermas_machine.analysis import serialise
+from habermas_machine.analysis import types as hm_types
 
 DFKeys = serialise.SerialisedComparisonKeys
 DFGroupedKeys = serialise.GroupedSerialisedComparisonKeys()

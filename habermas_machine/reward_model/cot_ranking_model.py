@@ -21,8 +21,8 @@ import re
 import numpy as np
 from typing_extensions import override
 
-from llm_client import base_client
-from reward_model import base_model
+from habermas_machine.llm_client import base_client
+from habermas_machine.reward_model import base_model
 
 
 class COTRankingModel(base_model.BaseRankingModel):
