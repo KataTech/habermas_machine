@@ -50,7 +50,7 @@ class Base(abc.ABC):
   def aggregate(
       self,
       rankings: np.ndarray,
-      seed: int | None = None,  # TODO(miba): Input rng instead of seed.
+      seed: int | None = None,
   ) -> SocialRankingResult:
     """Aggregates a set of rankings into a single social ranking.
 

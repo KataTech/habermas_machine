@@ -66,7 +66,7 @@ class HabermasMachine:
       num_citizens: int = 5,
       seed: int | None = None,
       verbose: bool = False,
-      num_retries_on_error: int = 1,
+      num_retries_on_error: int | None = 8,
   ):
     """Initializes the Habermas Machine."""
     self._question = question  # Question to be answered.

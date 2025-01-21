@@ -29,7 +29,6 @@ DEFAULT_MAX_TOKENS = 4096
 class LLMClient(abc.ABC):
   """Language model client base class."""
 
-  # TODO(miba): Move the settings to an initializer.
   @abc.abstractmethod
   def sample_text(
       self,
